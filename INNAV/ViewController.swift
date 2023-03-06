@@ -1,4 +1,4 @@
-
+//import CoreData
 import UIKit
 import ARKit
 import GameplayKit
@@ -10,8 +10,10 @@ class ViewController: UIViewController,ARSCNViewDelegate {
     @IBOutlet weak var navigateBtn: UIButton!
     @IBOutlet weak var addPOIBtn: UIButton!
     
+    @IBOutlet weak var stopnavbtn: UIButton!
     let configuration = ARWorldTrackingConfiguration()
     var tempNodeFlag = false
+    var tempnavFlag = false
     var poiFlag = false
     var pathNodes = [SCNNode(),SCNNode()]
     var counter = 0
@@ -52,7 +54,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
         self.sceneView.scene.rootNode.addChildNode(rootConnectingNode)
         poiName.append("Place 1 - Red")
         poiName.append("Place 2 - blue")
-        poiName.append("Place 3 - Green")
+        
     }
 
     //
@@ -114,6 +116,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             drawBtn.setTitle("STOP", for: .normal)
             
         }
+        //tempNodeFlag = false
     }
     @IBAction func AddPOIAction(_ sender: Any) {
         
@@ -143,26 +146,36 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             
             self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
                 self?.tempFunc(destNode: (self?.poiNode.first!)!)
+                
             }
+            
         }
+        alertCtrlr.addAction(action1)
         let action2 = UIAlertAction(title: poiName[1], style: .default) { (alertAction) in
             
             self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
                 self?.tempFunc(destNode: (self?.poiNode[1])!)
             }
             
-        }
-        let action3 = UIAlertAction(title: poiName[2], style: .default) { (alertAction) in
             
-            self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
-                self?.tempFunc(destNode: (self?.poiNode[2])!)
+        }
+        alertCtrlr.addAction(action2)
+        if (poiCounter == 3)
+        {
+            let action3 = UIAlertAction(title: poiName[2], style: .default) { (alertAction) in
+                
+                self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
+                    self?.tempFunc(destNode: (self?.poiNode[2])!)
+                }
+                
             }
+            alertCtrlr.addAction(action3)
             
         }
         
-        alertCtrlr.addAction(action1)
-        alertCtrlr.addAction(action2)
-        alertCtrlr.addAction(action3)
+        
+       
+        
         self.present(alertCtrlr,animated:true,completion:nil)
         
     }
@@ -245,7 +258,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
         }
         pathGraph = GKGraph()
         stringPathMap.removeValue(forKey: strNode)
-        
+        stopnavbtn.isHidden = false
     }
     func addTempNode(hitTestResult:ARHitTestResult) {
         
@@ -268,7 +281,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
         let transform = hitTestResult.worldTransform
         let thirdColumn = transform.columns.3
         
-        let node = SCNNode(geometry:SCNCylinder(radius: 0.04, height: 1.7))
+        let node = SCNNode(geometry:SCNCylinder(radius: 0.04, height: 1.0))
         node.geometry?.firstMaterial?.diffuse.contents = UIColor.white
         node.position = SCNVector3Make(thirdColumn.x, thirdColumn.y+0.85, thirdColumn.z)
         rootPOINode.addChildNode(node)
@@ -283,6 +296,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             self.navigateBtn.isHidden = false
         default:
             node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "green")
+            poiName.append("Place 3 - Green")
         }
         node2.position = SCNVector3Make(thirdColumn.x, thirdColumn.y+1.5, thirdColumn.z)
         rootPOINode.addChildNode(node2)
