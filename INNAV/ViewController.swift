@@ -137,7 +137,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
         
     }
     @IBAction func NavigateAction(_ sender: Any) {
-        if (tempnavFlag==true){
+        
             let alertCtrlr = UIAlertController(title: "Select POI", message: nil , preferredStyle: .alert)
             
             timer?.invalidate()
@@ -177,20 +177,15 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             
             
             self.present(alertCtrlr,animated:true,completion:nil)
-        }
+        
     }
     
-    @IBAction func stopNAV(_ sender: Any){
-        tempnavFlag = false
-        
-        
-        tempnavFlag = true
-    }
+
     //
     // MARK: Custom Methods //
     //
     func tempFunc(destNode:String) {
-        if tempnavFlag{
+    
             for (key,_) in dictPlanes {
                 let plane = key as ARAnchor
                 self.sceneView.session.remove(anchor: plane)
@@ -219,12 +214,12 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             }
             stringPathMap["\(cameraLocation)"] = ["\(nearestNode.position)"]
             strNode = "\(cameraLocation)"
-            
+        if tempnavFlag{
             retrieveFromDictAndNavigate(destNode:destNode)
         }
     }
     func retrieveFromDictAndNavigate(destNode:String) {
-        if tempnavFlag{
+        
             rootNavigationNode.enumerateChildNodes { (node, _) in
                 node.removeFromParentNode()
             }
@@ -263,10 +258,25 @@ class ViewController: UIViewController,ARSCNViewDelegate {
                 navigationNode.startTimer()
                 rootNavigationNode.addChildNode(navigationNode)
                 x = path
+                
+                
             }
             pathGraph = GKGraph()
             stringPathMap.removeValue(forKey: strNode)
             stopnavbtn.isHidden = false
+        
+    }
+    @IBAction func stopNAV(_ sender: Any){
+        if tempnavFlag == false {
+            tempnavFlag = true
+            stopnavbtn.setTitle("STOP", for: .normal)
+            
+        }
+        //navigationNode.stopTimer()
+        else {
+            tempnavFlag = false
+            stopnavbtn.setTitle("reset", for: .normal)
+            
         }
     }
     func addTempNode(hitTestResult:ARHitTestResult) {
@@ -415,12 +425,12 @@ class ViewController: UIViewController,ARSCNViewDelegate {
         }
     }
     func distanceBetween(n1:SCNVector3,n2:SCNVector3) -> Float {
-        return ((n1.x-n2.x)*(n1.x-n2.x) + (n1.z-n2.z)*(n1.z-n2.z)).squareRoot()
+        return ((n1.x-n2.x)*(n1.x-n2.x) + (n1.z-n2.z)*(n1.z-n2.z)).squareRoot() // using distance formula to find distance between 2 nodes
     }
     
     func midPointBetween(n1:SCNVector3,n2:SCNVector3) -> SCNVector3 {
         
-        return SCNVector3Make(((n1.x+n2.x)/2), ((n1.y+n2.y)/2), ((n1.z+n2.z)/2))
+        return SCNVector3Make(((n1.x+n2.x)/2), ((n1.y+n2.y)/2), ((n1.z+n2.z)/2)) // using mid point formula to determine the mid point of the path
     }
     
     func angleOfInclination(n1:SCNVector3,n2:SCNVector3)-> Float{
