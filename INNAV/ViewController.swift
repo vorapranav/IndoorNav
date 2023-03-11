@@ -145,7 +145,8 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             let action1 = UIAlertAction(title: poiName.first, style: .default) { (alertAction) in
                 
                 self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
-                    self?.tempFunc(destNode: (self?.poiNode.first!)!)
+                    guard let self = self, !self.poiNode.isEmpty else {return}
+                    self.tempFunc(destNode: (self.poiNode[0]))
                     
                 }
                 
@@ -154,7 +155,8 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             let action2 = UIAlertAction(title: poiName[1], style: .default) { (alertAction) in
                 
                 self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
-                    self?.tempFunc(destNode: (self?.poiNode[1])!)
+                    guard let self = self, !self.poiNode.isEmpty else {return}
+                    self.tempFunc(destNode: (self.poiNode[1]))
                 }
                 
                 
@@ -165,7 +167,8 @@ class ViewController: UIViewController,ARSCNViewDelegate {
                 let action3 = UIAlertAction(title: poiName[2], style: .default) { (alertAction) in
                     
                     self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
-                        self?.tempFunc(destNode: (self?.poiNode[2])!)
+                        guard let self = self, !self.poiNode.isEmpty else {return}
+                        self.tempFunc(destNode: (self.poiNode[2]))
                     }
                     
                 }
@@ -197,8 +200,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             rootTempNode.removeFromParentNode()
             rootConnectingNode.removeFromParentNode()
             
-            var minDistanc = Float()
-            minDistanc = 1000
+        var minDistanc: Float = 1000
             var nearestNode = SCNNode()
             
             rootPathNode.enumerateChildNodes { (child, _) in
@@ -242,8 +244,12 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             
             let startNodeFromDict = dictOfNodes[startKeyVectorString]
             let destNodeFromDict = dictOfNodes[destKeyVectorString]
-            let wayPoint:[GKGraphNode2D] = pathGraph.findPath(from: startNodeFromDict!, to: destNodeFromDict!) as! [GKGraphNode2D]
-            
+        guard let startNode = startNodeFromDict,
+              let destNode = destNodeFromDict else {
+            return
+        }
+        if let wayPoint = pathGraph.findPath(from: startNode, to: destNode) as? [GKGraphNode2D] {
+            guard !wayPoint.isEmpty else { return }
             var x = wayPoint[0]
             var skipWaypointFlag = true
             for path in wayPoint {
@@ -264,8 +270,10 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             pathGraph = GKGraph()
             stringPathMap.removeValue(forKey: strNode)
             stopnavbtn.isHidden = false
+        }
         
     }
+    
     @IBAction func stopNAV(_ sender: Any){
         if tempnavFlag == false {
             tempnavFlag = true
@@ -467,7 +475,10 @@ class ViewController: UIViewController,ARSCNViewDelegate {
                 counter = counter + 1
             }
         }
-        return vector3(Double(x)!,Double(y)!,Double(z)!)
+        if let xx = Double(x), let yy = Double(y), let zz = Double(z) {
+            return vector3(xx, yy, zz)
+        }
+        return vector_double3()
     }
 }
 
