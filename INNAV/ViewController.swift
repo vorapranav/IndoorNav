@@ -52,8 +52,8 @@ class ViewController: UIViewController,ARSCNViewDelegate {
         self.sceneView.scene.rootNode.addChildNode(rootPOINode)
         self.sceneView.scene.rootNode.addChildNode(rootNavigationNode)
         self.sceneView.scene.rootNode.addChildNode(rootConnectingNode)
-        poiName.append("Place 1 - Red")
-        poiName.append("Place 2 - blue")
+        //poiName.append("Place 1 - Red")
+        //poiName.append("Place 2 - blue")
         
     }
 
@@ -120,22 +120,76 @@ class ViewController: UIViewController,ARSCNViewDelegate {
     }
     @IBAction func AddPOIAction(_ sender: Any) {
         
-//        let alertCtrlr = UIAlertController(title: "Point of Interest", message: nil , preferredStyle: .alert)
-//        alertCtrlr.addTextField { (textField) in
-//            textField.placeholder = "Enter a name for POI"
-//        }
-//        let action = UIAlertAction(title: "Done", style: .default) { (alertAction) in
-//            let textField = alertCtrlr.textFields![0] as UITextField
-//            self.poiName.append(textField.text!)
-//            self.poiFlag = true
-//        }
-//
-//        alertCtrlr.addAction(action)
-//        self.present(alertCtrlr,animated:true,completion:nil)
-       self.poiFlag = true
-        poiCounter += 1
+        
+        
+        let alertCtrlr = UIAlertController(title: "Point of Interest", message: nil , preferredStyle: .alert)
+        let textField = UITextField()
+        textField.placeholder = "Enter a name for POI"
+        alertCtrlr.addTextField { (textField) in
+            textField.placeholder = "Enter a name for POI"
+        }
+        
+        let action = UIAlertAction(title: "Continue",
+                                           style: .default) { [weak alertCtrlr] _ in
+                                            guard let textFields = alertCtrlr?.textFields else { return }
+                                            
+            if let text = textFields[0].text {
+                self.poiName.append(text)
+                self.poiFlag = true
+                self.poiCounter += 1
+            }
+
+        }
+
+        alertCtrlr.addAction(action)
+        self.present(alertCtrlr,animated:true,completion:nil)
+        
         
     }
+    func addPointOfInterestNode(hitTestResult:ARHitTestResult) {
+       
+        let transform = hitTestResult.worldTransform
+        let thirdColumn = transform.columns.3
+        
+        let node = SCNNode(geometry:SCNCylinder(radius: 0.04, height: 1.5))
+        node.geometry?.firstMaterial?.diffuse.contents = UIColor.white
+        node.position = SCNVector3Make(thirdColumn.x, thirdColumn.y+0.05, thirdColumn.z)
+        rootPOINode.addChildNode(node)
+        
+        let node2 = SCNNode(geometry:SCNBox(width: 0.25, height: 0.25, length: 0.25, chamferRadius: 0.01))
+        
+        switch poiCounter {
+        case 1:
+            node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "red")
+        case 2:
+            node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "blue")
+            self.navigateBtn.isHidden = false
+        default:
+            node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "green")
+            //poiName.append("Place 3 - Green")
+        }
+        node2.position = SCNVector3Make(thirdColumn.x, thirdColumn.y+1, thirdColumn.z)
+        rootPOINode.addChildNode(node2)
+        
+        var minDistanc = Float()
+        minDistanc = 1000
+        var nearestNode = SCNNode()
+        
+        rootPathNode.enumerateChildNodes { (child, _) in
+            if !isEqual(n1: origin, n2: child.position) {
+                
+                let dist0 = distanceBetween(n1: node.position, n2: child.position)
+                if minDistanc>dist0 {
+                    
+                    minDistanc = dist0
+                    nearestNode = child
+                }
+            }
+        }
+        stringPathMap["\(node.position)"] = ["\(nearestNode.position)"]
+        poiNode.append("\(node.position)")
+    }
+    
     @IBAction func NavigateAction(_ sender: Any) {
         
             let alertCtrlr = UIAlertController(title: "Select POI", message: nil , preferredStyle: .alert)
@@ -302,49 +356,6 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             pathNodes[1] = node
             rootTempNode.addChildNode(node)
         }
-    }
-    func addPointOfInterestNode(hitTestResult:ARHitTestResult) {
-       
-        let transform = hitTestResult.worldTransform
-        let thirdColumn = transform.columns.3
-        
-        let node = SCNNode(geometry:SCNCylinder(radius: 0.04, height: 1.5))
-        node.geometry?.firstMaterial?.diffuse.contents = UIColor.white
-        node.position = SCNVector3Make(thirdColumn.x, thirdColumn.y+0.05, thirdColumn.z)
-        rootPOINode.addChildNode(node)
-        
-        let node2 = SCNNode(geometry:SCNBox(width: 0.25, height: 0.25, length: 0.25, chamferRadius: 0.01))
-        
-        switch poiCounter {
-        case 1:
-            node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "red")
-        case 2:
-            node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "blue")
-            self.navigateBtn.isHidden = false
-        default:
-            node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "green")
-            poiName.append("Place 3 - Green")
-        }
-        node2.position = SCNVector3Make(thirdColumn.x, thirdColumn.y+0.75, thirdColumn.z)
-        rootPOINode.addChildNode(node2)
-        
-        var minDistanc = Float()
-        minDistanc = 1000
-        var nearestNode = SCNNode()
-        
-        rootPathNode.enumerateChildNodes { (child, _) in
-            if !isEqual(n1: origin, n2: child.position) {
-                
-                let dist0 = distanceBetween(n1: node.position, n2: child.position)
-                if minDistanc>dist0 {
-                    
-                    minDistanc = dist0
-                    nearestNode = child
-                }
-            }
-        }
-        stringPathMap["\(node.position)"] = ["\(nearestNode.position)"]
-        poiNode.append("\(node.position)")
     }
     
     func addPathNodes(n1:SCNVector3, n2:SCNVector3) {
