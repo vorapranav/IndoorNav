@@ -1,4 +1,4 @@
-//import CoreData
+import CoreData
 import UIKit
 import ARKit
 import GameplayKit
@@ -11,6 +11,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
     @IBOutlet weak var addPOIBtn: UIButton!
     
     @IBOutlet weak var stopnavbtn: UIButton!
+    
     let configuration = ARWorldTrackingConfiguration()
     var tempNodeFlag = false
     var tempnavFlag = true
@@ -41,9 +42,34 @@ class ViewController: UIViewController,ARSCNViewDelegate {
     //
     // MARK: ViewDelegate Methods //
     //
+//
+//    var container: NSPersistentContainer!
+//
+////    func save () {
+////        let context = persistentContainer.viewContext
+////        if context.hasChanges {
+////          do {
+////              try context.save()
+////          } catch {
+////              let nserror = error as NSError
+////              fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+////          }
+////        }
+////      }
+//
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//            if let nextVC = segue.destination as? ViewController {
+//                nextVC.container = container
+//            }
+//        }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        guard container != nil else {
+//                    fatalError("This view needs a persistent container.")
+//                }
+//        
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints,ARSCNDebugOptions.showWorldOrigin]
         self.sceneView.autoenablesDefaultLighting = true
         configuration.planeDetection = .horizontal
@@ -230,7 +256,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
                 
             }
             
-            
+            //implement tableview for more actions
             
             
             self.present(alertCtrlr,animated:true,completion:nil)
@@ -276,6 +302,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
     }
     func retrieveFromDictAndNavigate(destNode:String) {
         
+        if tempnavFlag{
             rootNavigationNode.enumerateChildNodes { (node, _) in
                 node.removeFromParentNode()
             }
@@ -298,35 +325,52 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             
             let startNodeFromDict = dictOfNodes[startKeyVectorString]
             let destNodeFromDict = dictOfNodes[destKeyVectorString]
-        guard let startNode = startNodeFromDict,
-              let destNode = destNodeFromDict else {
-            return
-        }
-        if let wayPoint = pathGraph.findPath(from: startNode, to: destNode) as? [GKGraphNode2D] {
-            guard !wayPoint.isEmpty else { return }
-            var x = wayPoint[0]
-            var skipWaypointFlag = true
-            for path in wayPoint {
-                
-                if skipWaypointFlag {
-                    skipWaypointFlag = false
-                    continue
-                }
-                let str = SCNVector3(x.position.x, tempYAxis, x.position.y)
-                let dst = SCNVector3(path.position.x, tempYAxis, path.position.y)
-                let navigationNode = CylinderLine(v1: str, v2: dst, radius: 0.2, UIImageName:"arrow5")
-                navigationNode.startTimer()
-                rootNavigationNode.addChildNode(navigationNode)
-                x = path
-                
-                
+            guard let startNode = startNodeFromDict,
+                  let destNode = destNodeFromDict else {
+                return
             }
-            pathGraph = GKGraph()
-            stringPathMap.removeValue(forKey: strNode)
-            stopnavbtn.isHidden = false
+            if let wayPoint = pathGraph.findPath(from: startNode, to: destNode) as? [GKGraphNode2D] {
+                guard !wayPoint.isEmpty else { return }
+                var x = wayPoint[0]
+                var skipWaypointFlag = true
+                for path in wayPoint {
+                    
+                    if skipWaypointFlag {
+                        skipWaypointFlag = false
+                        continue
+                    }
+                    let str = SCNVector3(x.position.x, tempYAxis, x.position.y)
+                    let dst = SCNVector3(path.position.x, tempYAxis, path.position.y)
+                    let navigationNode = CylinderLine(v1: str, v2: dst, radius: 0.2, UIImageName:"arrow5")
+                    navigationNode.startTimer()
+                    rootNavigationNode.addChildNode(navigationNode)
+                    x = path
+                    
+                    if (x.position.x == path.position.x){
+                        if (x.position.y == path.position.y){
+                            let alert = UIAlertController(title: "Notification", message: "You have reached your location.", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                                NSLog("The \"OK\" alert occured.")
+                            }))
+                            self.present(alert, animated: true, completion: nil)
+                            tempnavFlag = false
+                            stopnavbtn.setTitle("reset", for: .normal)
+                            navigationNode.stopTimer()
+                            break
+                        }
+                    }
+                        
+                    
+                    
+                }
+                pathGraph = GKGraph()
+                stringPathMap.removeValue(forKey: strNode)
+                stopnavbtn.isHidden = false
+            }
         }
         
     }
+
     
     @IBAction func stopNAV(_ sender: Any){
         if tempnavFlag == false {

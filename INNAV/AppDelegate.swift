@@ -1,17 +1,31 @@
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
-
+   var window: UIWindow?
+//    lazy var persistentContainer: NSPersistentContainer = {
+//            let container = NSPersistentContainer(name: "data")
+//            container.loadPersistentStores { description, error in
+//                if let error = error {
+//                    fatalError("Unable to load persistent stores: \(error)")
+//                }
+//            }
+//            return container
+//        }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+//        if let rootVC = window?.rootViewController as? ViewController {
+//                    rootVC.container = persistentContainer
+//                }
         return true
     }
-
+    
+    
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -33,6 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    
+    
 
 
 }

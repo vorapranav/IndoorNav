@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81D4EA3729BF5566000AB55B /* data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 81D4EA3529BF5565000AB55B /* data.xcdatamodeld */; };
 		B957FB9F2017B5EF00B7141C /* CylinderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B957FB9E2017B5EF00B7141C /* CylinderLine.swift */; };
 		B95A98A42007A1940057878E /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A98A32007A1940057878E /* Plane.swift */; };
 		B9DBE9D62003C2D60092D69D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE9D52003C2D60092D69D /* AppDelegate.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		81D4EA3629BF5566000AB55B /* data.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = data.xcdatamodel; sourceTree = "<group>"; };
 		B957FB9E2017B5EF00B7141C /* CylinderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CylinderLine.swift; sourceTree = "<group>"; };
 		B95A98A32007A1940057878E /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		B9DBE9D22003C2D60092D69D /* INDNAV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INDNAV.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +68,7 @@
 				B9DBE9DC2003C2D60092D69D /* Assets.xcassets */,
 				B9DBE9DE2003C2D60092D69D /* LaunchScreen.storyboard */,
 				B9DBE9E12003C2D60092D69D /* Info.plist */,
+				81D4EA3529BF5565000AB55B /* data.xcdatamodeld */,
 			);
 			path = INNAV;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 			files = (
 				B9DBE9D82003C2D60092D69D /* ViewController.swift in Sources */,
 				B95A98A42007A1940057878E /* Plane.swift in Sources */,
+				81D4EA3729BF5566000AB55B /* data.xcdatamodeld in Sources */,
 				B9DBE9D62003C2D60092D69D /* AppDelegate.swift in Sources */,
 				B957FB9F2017B5EF00B7141C /* CylinderLine.swift in Sources */,
 			);
@@ -334,6 +338,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		81D4EA3529BF5565000AB55B /* data.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				81D4EA3629BF5566000AB55B /* data.xcdatamodel */,
+			);
+			currentVersion = 81D4EA3629BF5566000AB55B /* data.xcdatamodel */;
+			path = data.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B9DBE9CA2003C2D50092D69D /* Project object */;
 }
