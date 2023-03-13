@@ -177,9 +177,9 @@ class ViewController: UIViewController,ARSCNViewDelegate {
         let transform = hitTestResult.worldTransform
         let thirdColumn = transform.columns.3
         
-        let node = SCNNode(geometry:SCNCylinder(radius: 0.04, height: 1.5))
+        let node = SCNNode(geometry:SCNCylinder(radius: 0.04, height: 1.7))
         node.geometry?.firstMaterial?.diffuse.contents = UIColor.white
-        node.position = SCNVector3Make(thirdColumn.x, thirdColumn.y+0.05, thirdColumn.z)
+        node.position = SCNVector3Make(thirdColumn.x, thirdColumn.y+0.85, thirdColumn.z)
         rootPOINode.addChildNode(node)
         
         let node2 = SCNNode(geometry:SCNBox(width: 0.25, height: 0.25, length: 0.25, chamferRadius: 0.01))
@@ -296,9 +296,9 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             }
             stringPathMap["\(cameraLocation)"] = ["\(nearestNode.position)"]
             strNode = "\(cameraLocation)"
-        if tempnavFlag{
+        
             retrieveFromDictAndNavigate(destNode:destNode)
-        }
+        
     }
     func retrieveFromDictAndNavigate(destNode:String) {
         
@@ -329,7 +329,24 @@ class ViewController: UIViewController,ARSCNViewDelegate {
                   let destNode = destNodeFromDict else {
                 return
             }
-            if let wayPoint = pathGraph.findPath(from: startNode, to: destNode) as? [GKGraphNode2D] {
+            // if (x==path){
+                 
+            if (startNode==destNode){
+                 //if (x.position.x == path.position.x){
+                     //if (x.position.y == path.position.y){
+                         let alert = UIAlertController(title: "Notification", message: "You have reached your location.", preferredStyle: .alert)
+                         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                             NSLog("The \"OK\" alert occured.")
+                         }))
+                         self.present(alert, animated: true, completion: nil)
+                         tempnavFlag = false
+                         stopnavbtn.setTitle("reset", for: .normal)
+                         //navigationNode.stopTimer()
+                         //break
+                     }
+                // }
+             //}
+            if let wayPoint:[GKGraphNode2D] = pathGraph.findPath(from: startNode, to: destNode) as? [GKGraphNode2D] {
                 guard !wayPoint.isEmpty else { return }
                 var x = wayPoint[0]
                 var skipWaypointFlag = true
@@ -345,20 +362,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
                     navigationNode.startTimer()
                     rootNavigationNode.addChildNode(navigationNode)
                     x = path
-                    
-                    if (x.position.x == path.position.x){
-                        if (x.position.y == path.position.y){
-                            let alert = UIAlertController(title: "Notification", message: "You have reached your location.", preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-                                NSLog("The \"OK\" alert occured.")
-                            }))
-                            self.present(alert, animated: true, completion: nil)
-                            tempnavFlag = false
-                            stopnavbtn.setTitle("reset", for: .normal)
-                            navigationNode.stopTimer()
-                            break
-                        }
-                    }
+                   
                         
                     
                     
@@ -534,6 +538,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             return vector3(xx, yy, zz)
         }
         return vector_double3()
+        //return vector3(Double(x)!,Double(y)!,Double(z)!)
     }
 }
 
