@@ -42,6 +42,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
     //
     // MARK: ViewDelegate Methods //
     //
+    var name = String()
 //
 //    var container: NSPersistentContainer!
 //
@@ -184,17 +185,23 @@ class ViewController: UIViewController,ARSCNViewDelegate {
         
         let node2 = SCNNode(geometry:SCNBox(width: 0.25, height: 0.25, length: 0.25, chamferRadius: 0.01))
         
-        switch poiCounter {
-        case 1:
-            node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "red")
-        case 2:
-            node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "blue")
+        let colours = ["red","blue","green"]
+        let randomcolour = colours.randomElement()!
+        node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: randomcolour)
+        if (poiCounter == 2){
             self.navigateBtn.isHidden = false
-        default:
-            node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "green")
-            //poiName.append("Place 3 - Green")
         }
-        node2.position = SCNVector3Make(thirdColumn.x, thirdColumn.y+1, thirdColumn.z)
+//        switch poiCounter {
+//        case 1:
+//            node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named:"red")
+//        case 2:
+//            node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "blue")
+//            self.navigateBtn.isHidden = false
+//        default:
+//            node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "green")
+//            //poiName.append("Place 3 - Green")
+//        }
+        node2.position = SCNVector3Make(thirdColumn.x, thirdColumn.y+1.5, thirdColumn.z)
         rootPOINode.addChildNode(node2)
         
         var minDistanc = Float()
@@ -222,39 +229,57 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             
             timer?.invalidate()
             
-            let action1 = UIAlertAction(title: poiName.first, style: .default) { (alertAction) in
-                
-                self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
-                    guard let self = self, !self.poiNode.isEmpty else {return}
-                    self.tempFunc(destNode: (self.poiNode[0]))
-                    
-                }
-                
-            }
-            alertCtrlr.addAction(action1)
-            let action2 = UIAlertAction(title: poiName[1], style: .default) { (alertAction) in
-                
-                self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
-                    guard let self = self, !self.poiNode.isEmpty else {return}
-                    self.tempFunc(destNode: (self.poiNode[1]))
-                }
-                
-                
-            }
-            alertCtrlr.addAction(action2)
-            if (poiCounter == 3)
-            {
-                let action3 = UIAlertAction(title: poiName[2], style: .default) { (alertAction) in
+            var x = 0
+            for node in poiNode{
+                //x=0
+                let action = UIAlertAction(title: poiName[x], style: .default) { (alertAction) in
                     
                     self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
                         guard let self = self, !self.poiNode.isEmpty else {return}
-                        self.tempFunc(destNode: (self.poiNode[2]))
+                        self.tempFunc(destNode: node)//error (index out of range)
+                        
                     }
                     
                 }
-                alertCtrlr.addAction(action3)
-                
-            }
+                x=x+1
+                alertCtrlr.addAction(action)
+            
+           }
+            
+            
+//            let action1 = UIAlertAction(title: poiName.first, style: .default) { (alertAction) in
+//
+//                self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
+//                    guard let self = self, !self.poiNode.isEmpty else {return}
+//                    self.tempFunc(destNode: (self.poiNode[0]))
+//
+//                }
+//
+//            }
+//            alertCtrlr.addAction(action1)
+//            let action2 = UIAlertAction(title: poiName[1], style: .default) { (alertAction) in
+//
+//                self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
+//                    guard let self = self, !self.poiNode.isEmpty else {return}
+//                    self.tempFunc(destNode: (self.poiNode[1]))
+//                }
+//
+//
+//            }
+//            alertCtrlr.addAction(action2)
+//            if (poiCounter == 3)
+//            {
+//                let action3 = UIAlertAction(title: poiName[2], style: .default) { (alertAction) in
+//
+//                    self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
+//                        guard let self = self, !self.poiNode.isEmpty else {return}
+//                        self.tempFunc(destNode: (self.poiNode[2]))
+//                    }
+//
+//                }
+//                alertCtrlr.addAction(action3)
+//
+//            }
             
             //implement tableview for more actions
             
@@ -280,7 +305,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             rootTempNode.removeFromParentNode()
             rootConnectingNode.removeFromParentNode()
             
-        var minDistanc: Float = 1000
+        var minDistanc: Float = 10000
             var nearestNode = SCNNode()
             
             rootPathNode.enumerateChildNodes { (child, _) in
@@ -331,7 +356,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             }
             // if (x==path){
                  
-            if (startNode==destNode){
+            if ("\(cameraLocation)"==destKeyVectorString){
                  //if (x.position.x == path.position.x){
                      //if (x.position.y == path.position.y){
                          let alert = UIAlertController(title: "Notification", message: "You have reached your location.", preferredStyle: .alert)
