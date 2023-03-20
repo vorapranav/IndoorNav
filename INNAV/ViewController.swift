@@ -39,9 +39,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
     var poiName = [String]()
     var poiCounter = 0
     weak var timer: Timer?
-    //
-    // MARK: ViewDelegate Methods //
-    //
+  
     var name = String()
 //
 //    var container: NSPersistentContainer!
@@ -124,9 +122,9 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             self.dictPlanes.removeValue(forKey: planeAnchor)
         }
     }
-    //
-    // MARK: Button Actions //
-    //
+
+    //Button Actions
+
     @IBAction func StartAction(_ sender: Any) {
         
         if tempNodeFlag {
@@ -191,16 +189,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
         if (poiCounter == 2){
             self.navigateBtn.isHidden = false
         }
-//        switch poiCounter {
-//        case 1:
-//            node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named:"red")
-//        case 2:
-//            node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "blue")
-//            self.navigateBtn.isHidden = false
-//        default:
-//            node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "green")
-//            //poiName.append("Place 3 - Green")
-//        }
+
         node2.position = SCNVector3Make(thirdColumn.x, thirdColumn.y+1.5, thirdColumn.z)
         rootPOINode.addChildNode(node2)
         
@@ -224,7 +213,8 @@ class ViewController: UIViewController,ARSCNViewDelegate {
     }
     
     @IBAction func NavigateAction(_ sender: Any) {
-        
+        if tempnavFlag{
+            self.drawBtn.isHidden = true
             let alertCtrlr = UIAlertController(title: "Select POI", message: nil , preferredStyle: .alert)
             
             timer?.invalidate()
@@ -239,61 +229,29 @@ class ViewController: UIViewController,ARSCNViewDelegate {
                         self.tempFunc(destNode: node)//error (index out of range)
                         
                     }
-                    
+                    if self.tempnavFlag == false{
+                        self.timer?.invalidate()
+                        self.tempFunc(destNode: "SCNVector3(nil,nil,nil)")
+                    }
                 }
                 x=x+1
                 alertCtrlr.addAction(action)
-            
-           }
-            
-            
-//            let action1 = UIAlertAction(title: poiName.first, style: .default) { (alertAction) in
-//
-//                self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
-//                    guard let self = self, !self.poiNode.isEmpty else {return}
-//                    self.tempFunc(destNode: (self.poiNode[0]))
-//
-//                }
-//
-//            }
-//            alertCtrlr.addAction(action1)
-//            let action2 = UIAlertAction(title: poiName[1], style: .default) { (alertAction) in
-//
-//                self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
-//                    guard let self = self, !self.poiNode.isEmpty else {return}
-//                    self.tempFunc(destNode: (self.poiNode[1]))
-//                }
-//
-//
-//            }
-//            alertCtrlr.addAction(action2)
-//            if (poiCounter == 3)
-//            {
-//                let action3 = UIAlertAction(title: poiName[2], style: .default) { (alertAction) in
-//
-//                    self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
-//                        guard let self = self, !self.poiNode.isEmpty else {return}
-//                        self.tempFunc(destNode: (self.poiNode[2]))
-//                    }
-//
-//                }
-//                alertCtrlr.addAction(action3)
-//
-//            }
-            
-            //implement tableview for more actions
-            
-            
+                
+            }
+            let backaction = UIAlertAction(title: "BACK", style: .default)
+            alertCtrlr.addAction(backaction)
             self.present(alertCtrlr,animated:true,completion:nil)
+        }
+        else
+        {
+            
+            tempFunc(destNode: "SCNVector3(0, 0, 0)")
+        }
         
     }
-    
-
-    //
-    // MARK: Custom Methods //
-    //
+   
     func tempFunc(destNode:String) {
-    
+        if tempnavFlag{
             for (key,_) in dictPlanes {
                 let plane = key as ARAnchor
                 self.sceneView.session.remove(anchor: plane)
@@ -305,29 +263,50 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             rootTempNode.removeFromParentNode()
             rootConnectingNode.removeFromParentNode()
             
-        var minDistanc: Float = 10000
+            var minDistanc: Float = 1000
             var nearestNode = SCNNode()
             
             rootPathNode.enumerateChildNodes { (child, _) in
                 if !isEqual(n1: origin, n2: child.position) {
                     
-                    let dist0 = distanceBetween(n1: cameraLocation, n2: child.position)
+                    var dist0 = distanceBetween(n1: cameraLocation, n2: child.position)
                     if minDistanc>dist0 {
                         
                         minDistanc = dist0
                         nearestNode = child
                     }
                 }
+                //if ((distanceBetween(n1: cameraLocation, n2: child.position))==0){
+//                if (distanceBetween(n1: cameraLocation, n2: nearestNode.position)<0.5){
+//                        if (cameraLocation.y == nearestNode.position.y){
+//                            if (cameraLocation.z == nearestNode.position.z){
+//                                 let alert = UIAlertController(title: "Notification", message: "You have reached your location.", preferredStyle: .alert)
+//                                 alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+//                                     NSLog("The \"OK\" alert occured.")
+//                                 }))
+//                                 self.present(alert, animated: true, completion: nil)
+//                                 tempnavFlag = false
+//                                 stopnavbtn.setTitle("reset", for: .normal)
+//                                 //navigationNode.stopTimer()
+//                                 //break
+//                             }
+//                        }
+//                     }
             }
+            
             stringPathMap["\(cameraLocation)"] = ["\(nearestNode.position)"]
             strNode = "\(cameraLocation)"
-        
+            
             retrieveFromDictAndNavigate(destNode:destNode)
-        
+        }
+        else{
+            return
+        }
+            
     }
     func retrieveFromDictAndNavigate(destNode:String) {
         
-        if tempnavFlag{
+        
             rootNavigationNode.enumerateChildNodes { (node, _) in
                 node.removeFromParentNode()
             }
@@ -356,21 +335,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             }
             // if (x==path){
                  
-            if ("\(cameraLocation)"==destKeyVectorString){
-                 //if (x.position.x == path.position.x){
-                     //if (x.position.y == path.position.y){
-                         let alert = UIAlertController(title: "Notification", message: "You have reached your location.", preferredStyle: .alert)
-                         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-                             NSLog("The \"OK\" alert occured.")
-                         }))
-                         self.present(alert, animated: true, completion: nil)
-                         tempnavFlag = false
-                         stopnavbtn.setTitle("reset", for: .normal)
-                         //navigationNode.stopTimer()
-                         //break
-                     }
-                // }
-             //}
+        
             if let wayPoint:[GKGraphNode2D] = pathGraph.findPath(from: startNode, to: destNode) as? [GKGraphNode2D] {
                 guard !wayPoint.isEmpty else { return }
                 var x = wayPoint[0]
@@ -388,6 +353,12 @@ class ViewController: UIViewController,ARSCNViewDelegate {
                     rootNavigationNode.addChildNode(navigationNode)
                     x = path
                    
+                    if tempnavFlag == false{
+                        let str = SCNVector3(0,0,0)
+                        let dst = SCNVector3(0,0,0)
+                        let navigationNode = CylinderLine(v1: str, v2: dst, radius: 0.2, UIImageName:"arrow5")
+                        navigationNode.stopTimer()
+                    }
                         
                     
                     
@@ -396,7 +367,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
                 stringPathMap.removeValue(forKey: strNode)
                 stopnavbtn.isHidden = false
             }
-        }
+       
         
     }
 

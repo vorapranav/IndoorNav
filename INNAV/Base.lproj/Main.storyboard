@@ -33,8 +33,8 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGp-Qo-bed">
-                                <rect key="frame" x="282" y="780" width="112" height="62"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGp-Qo-bed">
+                                <rect key="frame" x="265" y="765" width="129" height="77"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <state key="normal" title="Navigate">
                                     <color key="titleColor" red="0.0026239977530534597" green="0.54254050384017127" blue="0.97572969543147203" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -63,8 +63,8 @@
                                     <action selector="StartAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PlB-gz-nFP"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wqk-2n-6UC">
-                                <rect key="frame" x="20" y="780" width="106" height="62"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wqk-2n-6UC">
+                                <rect key="frame" x="20" y="765" width="121" height="77"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="106" id="R5L-qU-geD"/>
                                     <constraint firstAttribute="height" constant="62" id="eYN-sh-Bmb"/>
@@ -72,7 +72,7 @@
                                 <state key="normal" title="Add POI">
                                     <color key="titleColor" red="0.0026239977530534597" green="0.54254050384017127" blue="0.97572969543147203" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <buttonConfiguration key="configuration" style="gray" title="Add POI">
+                                <buttonConfiguration key="configuration" style="gray" title="Drop POI">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="19"/>
                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
@@ -81,7 +81,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rg2-6K-Fhf">
-                                <rect key="frame" x="282" y="722" width="112" height="50"/>
+                                <rect key="frame" x="273" y="707" width="112" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <state key="normal" title="Button"/>
