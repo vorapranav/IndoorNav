@@ -183,7 +183,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
         
         let node2 = SCNNode(geometry:SCNBox(width: 0.25, height: 0.25, length: 0.25, chamferRadius: 0.01))
         
-        let colours = ["red","blue","green"]
+        let colours = ["red","blue","green","yellow","purple","orange","bluebb"]
         let randomcolour = colours.randomElement()!
         node2.geometry?.firstMaterial?.diffuse.contents = UIImage(named: randomcolour)
         if (poiCounter == 2){
@@ -238,8 +238,9 @@ class ViewController: UIViewController,ARSCNViewDelegate {
                 alertCtrlr.addAction(action)
                 
             }
-            let backaction = UIAlertAction(title: "BACK", style: .default)
-            alertCtrlr.addAction(backaction)
+            let cancelNav = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler:nil)
+                            cancelNav.setValue(UIColor.white, forKey: "titleTextColor")
+                            alertCtrlr.addAction(cancelNav)
             self.present(alertCtrlr,animated:true,completion:nil)
         }
         else
@@ -356,7 +357,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
                     if tempnavFlag == false{
                         let str = SCNVector3(0,0,0)
                         let dst = SCNVector3(0,0,0)
-                        let navigationNode = CylinderLine(v1: str, v2: dst, radius: 0.2, UIImageName:"arrow5")
+                        let navigationNode = CylinderLine(v1: str, v2: dst, radius: 0.2, UIImageName:"")
                         navigationNode.stopTimer()
                     }
                         

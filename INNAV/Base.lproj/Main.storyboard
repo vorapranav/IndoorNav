@@ -33,8 +33,14 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGp-Qo-bed">
-                                <rect key="frame" x="265" y="765" width="129" height="77"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGp-Qo-bed">
+                                <rect key="frame" x="278" y="765" width="121" height="77"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="121" id="Dyz-9h-Xbx"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="77" id="GVh-CN-D7v"/>
+                                    <constraint firstAttribute="height" constant="77" id="gyo-8J-1ft"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="121" id="irO-Qk-RsX"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <state key="normal" title="Navigate">
                                     <color key="titleColor" red="0.0026239977530534597" green="0.54254050384017127" blue="0.97572969543147203" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -80,9 +86,12 @@
                                     <action selector="AddPOIAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Cju-E3-bi1"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rg2-6K-Fhf">
-                                <rect key="frame" x="273" y="707" width="112" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rg2-6K-Fhf">
+                                <rect key="frame" x="313" y="60" width="81" height="65"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="81" id="Tgn-AM-Y2R"/>
+                                    <constraint firstAttribute="height" constant="50" id="edY-2U-cg4"/>
+                                </constraints>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="STOP"/>
@@ -94,23 +103,31 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rg2-6K-Fhf" secondAttribute="trailing" constant="20" id="0zs-dM-xPh"/>
                             <constraint firstItem="wGp-Qo-bed" firstAttribute="leading" secondItem="l59-Th-ZNC" secondAttribute="trailing" constant="34" id="1O7-Hp-Joq"/>
                             <constraint firstItem="dkh-GD-IJM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3Ih-O3-UsG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wGp-Qo-bed" secondAttribute="bottom" constant="20" id="4fr-29-St9"/>
                             <constraint firstItem="wGp-Qo-bed" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="732" id="C4U-Rq-uuJ"/>
+                            <constraint firstItem="wGp-Qo-bed" firstAttribute="top" secondItem="rg2-6K-Fhf" secondAttribute="bottom" constant="640" id="FW4-bf-D18"/>
                             <constraint firstItem="l59-Th-ZNC" firstAttribute="top" secondItem="q4Q-fk-5YY" secondAttribute="bottom" constant="292.5" id="Gj0-B4-W6p"/>
                             <constraint firstItem="l59-Th-ZNC" firstAttribute="leading" secondItem="Wqk-2n-6UC" secondAttribute="trailing" constant="37" id="Hyp-CB-UUK"/>
+                            <constraint firstItem="wGp-Qo-bed" firstAttribute="top" secondItem="rg2-6K-Fhf" secondAttribute="bottom" constant="655" id="Jlv-G4-aeu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Wqk-2n-6UC" secondAttribute="bottom" constant="20" id="L6o-PQ-HrA"/>
                             <constraint firstItem="Wqk-2n-6UC" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="732" id="LvW-Fd-fWJ"/>
                             <constraint firstAttribute="bottomMargin" secondItem="dkh-GD-IJM" secondAttribute="bottom" constant="-34" id="MlB-0U-9Y3"/>
+                            <constraint firstItem="rg2-6K-Fhf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="313" id="PkW-y4-iZS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wGp-Qo-bed" secondAttribute="trailing" constant="20" id="SJF-tg-BgT"/>
+                            <constraint firstItem="rg2-6K-Fhf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="12" id="agX-co-UOa"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="q4Q-fk-5YY" secondAttribute="trailing" constant="197" id="fdk-uf-DIY"/>
                             <constraint firstItem="dkh-GD-IJM" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-48" id="gJg-Bn-oMs"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="l59-Th-ZNC" secondAttribute="bottom" constant="20" id="hWS-av-xMn"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wGp-Qo-bed" secondAttribute="bottom" constant="20" id="lal-jd-AOr"/>
                             <constraint firstItem="q4Q-fk-5YY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="385" id="ofK-it-e3G"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wGp-Qo-bed" secondAttribute="trailing" constant="15" id="ohM-Hx-Bdt"/>
                             <constraint firstItem="q4Q-fk-5YY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="197" id="pNX-gk-Muw"/>
                             <constraint firstItem="dkh-GD-IJM" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="sLb-DW-nA6"/>
                             <constraint firstItem="Wqk-2n-6UC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="tHI-fd-I9V"/>
+                            <constraint firstItem="wGp-Qo-bed" firstAttribute="leading" secondItem="l59-Th-ZNC" secondAttribute="trailing" constant="30" id="v7T-1c-fKn"/>
                         </constraints>
                     </view>
                     <connections>
