@@ -41,34 +41,11 @@ class ViewController: UIViewController,ARSCNViewDelegate {
     weak var timer: Timer?
   
     var name = String()
-//
-//    var container: NSPersistentContainer!
-//
-////    func save () {
-////        let context = persistentContainer.viewContext
-////        if context.hasChanges {
-////          do {
-////              try context.save()
-////          } catch {
-////              let nserror = error as NSError
-////              fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-////          }
-////        }
-////      }
-//
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//            if let nextVC = segue.destination as? ViewController {
-//                nextVC.container = container
-//            }
-//        }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        guard container != nil else {
-//                    fatalError("This view needs a persistent container.")
-//                }
-//        
+      
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints,ARSCNDebugOptions.showWorldOrigin]
         self.sceneView.autoenablesDefaultLighting = true
         configuration.planeDetection = .horizontal
@@ -277,22 +254,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
                         nearestNode = child
                     }
                 }
-                //if ((distanceBetween(n1: cameraLocation, n2: child.position))==0){
-//                if (distanceBetween(n1: cameraLocation, n2: nearestNode.position)<0.5){
-//                        if (cameraLocation.y == nearestNode.position.y){
-//                            if (cameraLocation.z == nearestNode.position.z){
-//                                 let alert = UIAlertController(title: "Notification", message: "You have reached your location.", preferredStyle: .alert)
-//                                 alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-//                                     NSLog("The \"OK\" alert occured.")
-//                                 }))
-//                                 self.present(alert, animated: true, completion: nil)
-//                                 tempnavFlag = false
-//                                 stopnavbtn.setTitle("reset", for: .normal)
-//                                 //navigationNode.stopTimer()
-//                                 //break
-//                             }
-//                        }
-//                     }
+                
             }
             
             stringPathMap["\(cameraLocation)"] = ["\(nearestNode.position)"]
@@ -349,6 +311,27 @@ class ViewController: UIViewController,ARSCNViewDelegate {
                     }
                     let str = SCNVector3(x.position.x, tempYAxis, x.position.y)
                     let dst = SCNVector3(path.position.x, tempYAxis, path.position.y)
+                    //if ((distanceBetween(n1: cameraLocation, n2: child.position))==0){
+    //                if (distanceBetween(n1: cameraLocation, n2: nearestNode.position)<0.5){
+    //                        if (cameraLocation.y == nearestNode.position.y){
+                    var x1 = x.position.x
+                    var y1 = x.position.y
+                    var x2 = path.position.x
+                    var y2 = path.position.y
+                    if (abs(x1-x2)<0.05) && (abs(y1-y2)<0.05){
+                                     let alert = UIAlertController(title: "Notification", message: "You have reached your location.", preferredStyle: .alert)
+                                     alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                                         NSLog("The \"OK\" alert occured.")
+                                     }))
+                                     self.present(alert, animated: true, completion: nil)
+                                     tempnavFlag = false
+                                     stopnavbtn.setTitle("reset", for: .normal)
+                                     //navigationNode.stopTimer()
+                                     //break
+                                 }
+                    
+    //                        }
+    //                     }
                     let navigationNode = CylinderLine(v1: str, v2: dst, radius: 0.2, UIImageName:"arrow5")
                     navigationNode.startTimer()
                     rootNavigationNode.addChildNode(navigationNode)
