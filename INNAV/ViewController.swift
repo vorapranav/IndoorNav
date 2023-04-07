@@ -10,12 +10,14 @@ class ViewController: UIViewController,ARSCNViewDelegate {
     @IBOutlet weak var navigateBtn: UIButton!
     @IBOutlet weak var addPOIBtn: UIButton!
     
+    @IBOutlet weak var objectdetect: UIButton!
     @IBOutlet weak var stopnavbtn: UIButton!
     
     let configuration = ARWorldTrackingConfiguration()
     var tempNodeFlag = false
     var tempnavFlag = true
     var poiFlag = false
+    var objflag = false
     var pathNodes = [SCNNode(),SCNNode()]
     var counter = 0
     var dictPlanes = [ARPlaneAnchor:Plane]()
@@ -247,7 +249,7 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             rootPathNode.enumerateChildNodes { (child, _) in
                 if !isEqual(n1: origin, n2: child.position) {
                     
-                    var dist0 = distanceBetween(n1: cameraLocation, n2: child.position)
+                    let dist0 = distanceBetween(n1: cameraLocation, n2: child.position)
                     if minDistanc>dist0 {
                         
                         minDistanc = dist0
@@ -369,6 +371,21 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             
         }
     }
+    
+  
+    @IBAction func OBJdetection(_ sender: Any) {
+        if objflag == false{
+            objflag = true
+            objectdetect.setTitle("OBJ DETECT : ON", for: .normal)
+            objectdetect.setTitleColor(.blue, for: .normal)
+        }
+        else {
+            objflag = false
+            objectdetect.setTitle("OBJ DETECT : OFF", for: .normal)
+            objectdetect.setTitleColor(.red, for: .normal)
+        }
+    }
+    
     func addTempNode(hitTestResult:ARHitTestResult) {
         
         let node = SCNNode(geometry: SCNSphere(radius: 0.05))
@@ -519,6 +536,24 @@ class ViewController: UIViewController,ARSCNViewDelegate {
         }
         return vector_double3()
         //return vector3(Double(x)!,Double(y)!,Double(z)!)
+    }
+    
+    
+    
+    
+    func session(_ session: ARSession, didFailWithError error: Error) {
+        // Present an error message to the user
+        
+    }
+    
+    func sessionWasInterrupted(_ session: ARSession) {
+        // Inform the user that the session has been interrupted, for example, by presenting an overlay
+        
+    }
+    
+    func sessionInterruptionEnded(_ session: ARSession) {
+        // Reset tracking and/or remove existing anchors if consistent tracking is required
+        
     }
 }
 

@@ -1,0 +1,32 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "resources" : [
+    {
+      "filename" : "controller - b .arobject"
+    },
+    {
+      "filename" : "controller-w.arobject"
+    },
+    {
+      "filename" : "mouse.arobject"
+    },
+    {
+      "filename" : "mousenew.arobject"
+    },
+    {
+      "filename" : "MyPot.arobject"
+    },
+    {
+      "filename" : "salt.arobject"
+    },
+    {
+      "filename" : "Scan_2-06-48 p.m..arobject"
+    },
+    {
+      "filename" : "wallet.arobject"
+    }
+  ]
+}
