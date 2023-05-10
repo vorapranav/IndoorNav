@@ -5,6 +5,9 @@
   },
   "resources" : [
     {
+      "filename" : "buddha.arobject"
+    },
+    {
       "filename" : "controller - b .arobject"
     },
     {
@@ -17,13 +20,16 @@
       "filename" : "mousenew.arobject"
     },
     {
-      "filename" : "MyPot.arobject"
-    },
-    {
       "filename" : "salt.arobject"
     },
     {
       "filename" : "Scan_2-06-48 p.m..arobject"
+    },
+    {
+      "filename" : "Scan_4-33-57 p.m..arobject"
+    },
+    {
+      "filename" : "Teddy.arobject"
     },
     {
       "filename" : "wallet.arobject"

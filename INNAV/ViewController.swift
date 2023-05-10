@@ -374,10 +374,11 @@ class ViewController: UIViewController,ARSCNViewDelegate {
     
   
     @IBAction func OBJdetection(_ sender: Any) {
-        if objflag == false{
+        if objflag == false {
             objflag = true
             objectdetect.setTitle("OBJ DETECT : ON", for: .normal)
             objectdetect.setTitleColor(.blue, for: .normal)
+            performSegue(withIdentifier: "Identifier", sender: nil)
         }
         else {
             objflag = false
@@ -385,6 +386,8 @@ class ViewController: UIViewController,ARSCNViewDelegate {
             objectdetect.setTitleColor(.red, for: .normal)
         }
     }
+    
+    
     
     func addTempNode(hitTestResult:ARHitTestResult) {
         

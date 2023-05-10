@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81AD0B792A0AA0F60039E8C4 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 81AD0B782A0AA0F60039E8C4 /* art.scnassets */; };
 		81D4EA3729BF5566000AB55B /* data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 81D4EA3529BF5565000AB55B /* data.xcdatamodeld */; };
 		81D4EA4129DF4020000AB55B /* controller.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81D4EA4029DF4020000AB55B /* controller.sks */; };
 		81D4EA4329DF4037000AB55B /* defaultscene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81D4EA4229DF4037000AB55B /* defaultscene.sks */; };
-		81D4EA4529DF4042000AB55B /* ProductInfo.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81D4EA4429DF4042000AB55B /* ProductInfo.sks */; };
+		81D4EA4529DF4042000AB55B /* Teddy.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81D4EA4429DF4042000AB55B /* Teddy.sks */; };
 		81D4EA4729DF4566000AB55B /* GameScene.scn in Resources */ = {isa = PBXBuildFile; fileRef = 81D4EA4629DF4566000AB55B /* GameScene.scn */; };
-		81D4EA4929E08B7A000AB55B /* objdetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4EA4829E08B79000AB55B /* objdetection.swift */; };
+		81D4EA4929E08B7A000AB55B /* ObjectDetectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4EA4829E08B79000AB55B /* ObjectDetectionController.swift */; };
 		B957FB9F2017B5EF00B7141C /* CylinderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B957FB9E2017B5EF00B7141C /* CylinderLine.swift */; };
 		B95A98A42007A1940057878E /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A98A32007A1940057878E /* Plane.swift */; };
 		B9DBE9D62003C2D60092D69D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE9D52003C2D60092D69D /* AppDelegate.swift */; };
@@ -23,12 +24,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		81AD0B782A0AA0F60039E8C4 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		81D4EA3629BF5566000AB55B /* data.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = data.xcdatamodel; sourceTree = "<group>"; };
 		81D4EA4029DF4020000AB55B /* controller.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = controller.sks; sourceTree = "<group>"; };
 		81D4EA4229DF4037000AB55B /* defaultscene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = defaultscene.sks; sourceTree = "<group>"; };
-		81D4EA4429DF4042000AB55B /* ProductInfo.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ProductInfo.sks; sourceTree = "<group>"; };
+		81D4EA4429DF4042000AB55B /* Teddy.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Teddy.sks; sourceTree = "<group>"; };
 		81D4EA4629DF4566000AB55B /* GameScene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = GameScene.scn; sourceTree = "<group>"; };
-		81D4EA4829E08B79000AB55B /* objdetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = objdetection.swift; sourceTree = "<group>"; };
+		81D4EA4829E08B79000AB55B /* ObjectDetectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetectionController.swift; sourceTree = "<group>"; };
+		81F1F1CE2A0C103900831335 /* LaughingBuddha.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LaughingBuddha.sks; sourceTree = "<group>"; };
+		81FE9CFB2A0C190B00116FBC /* Salt.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Salt.sks; sourceTree = "<group>"; };
 		B957FB9E2017B5EF00B7141C /* CylinderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CylinderLine.swift; sourceTree = "<group>"; };
 		B95A98A32007A1940057878E /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		B9DBE9D22003C2D60092D69D /* INDNAV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INDNAV.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,7 +74,7 @@
 		B9DBE9D42003C2D60092D69D /* INNAV */ = {
 			isa = PBXGroup;
 			children = (
-				81D4EA4829E08B79000AB55B /* objdetection.swift */,
+				81D4EA4829E08B79000AB55B /* ObjectDetectionController.swift */,
 				B9DBE9D52003C2D60092D69D /* AppDelegate.swift */,
 				B9DBE9D72003C2D60092D69D /* ViewController.swift */,
 				B9DBE9D92003C2D60092D69D /* Main.storyboard */,
@@ -82,8 +86,11 @@
 				81D4EA3529BF5565000AB55B /* data.xcdatamodeld */,
 				81D4EA4029DF4020000AB55B /* controller.sks */,
 				81D4EA4229DF4037000AB55B /* defaultscene.sks */,
-				81D4EA4429DF4042000AB55B /* ProductInfo.sks */,
+				81FE9CFB2A0C190B00116FBC /* Salt.sks */,
+				81D4EA4429DF4042000AB55B /* Teddy.sks */,
 				81D4EA4629DF4566000AB55B /* GameScene.scn */,
+				81F1F1CE2A0C103900831335 /* LaughingBuddha.sks */,
+				81AD0B782A0AA0F60039E8C4 /* art.scnassets */,
 			);
 			path = INNAV;
 			sourceTree = "<group>";
@@ -148,7 +155,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				81D4EA4329DF4037000AB55B /* defaultscene.sks in Resources */,
-				81D4EA4529DF4042000AB55B /* ProductInfo.sks in Resources */,
+				81AD0B792A0AA0F60039E8C4 /* art.scnassets in Resources */,
+				81D4EA4529DF4042000AB55B /* Teddy.sks in Resources */,
 				81D4EA4729DF4566000AB55B /* GameScene.scn in Resources */,
 				B9DBE9E02003C2D60092D69D /* LaunchScreen.storyboard in Resources */,
 				81D4EA4129DF4020000AB55B /* controller.sks in Resources */,
@@ -167,7 +175,7 @@
 				B9DBE9D82003C2D60092D69D /* ViewController.swift in Sources */,
 				B95A98A42007A1940057878E /* Plane.swift in Sources */,
 				81D4EA3729BF5566000AB55B /* data.xcdatamodeld in Sources */,
-				81D4EA4929E08B7A000AB55B /* objdetection.swift in Sources */,
+				81D4EA4929E08B7A000AB55B /* ObjectDetectionController.swift in Sources */,
 				B9DBE9D62003C2D60092D69D /* AppDelegate.swift in Sources */,
 				B957FB9F2017B5EF00B7141C /* CylinderLine.swift in Sources */,
 			);
